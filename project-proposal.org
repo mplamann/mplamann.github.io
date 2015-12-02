@@ -1,3 +1,8 @@
+#+TITLE: 15-462 Project Proposal
+#+AUTHOR: Mitchell Plamann
+#+EMAIL: mplamann@andrew.cmu.edu
+#+OPTIONS: toc:nil
+
 * Mitchell Plamann's Project Proposal
 ** Option G: Iterated Function Systems
 For this project, I plan to implement the iterated function systems
