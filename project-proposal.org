@@ -1,1 +1,23 @@
-* Project Proposal
+* Mitchell Plamann's Project Proposal
+** Option G: Iterated Function Systems
+For this project, I plan to implement the iterated function systems
+extension to assignment 1.
+My goal with this project is to be able to draw fractal flame images
+similar to this [[https://upload.wikimedia.org/wikipedia/commons/0/0a/Flame_Apophysis_Fractal_Flame.jpg][sample image]].
+I am not sure if this goal is ambitious enough for this project, so
+I could extend it to render animated fractal flames, or possibly
+to run its computations on a nvidia gpu using CUDA. I'd appreciate any
+feedback on what a reasonable workload looks like for this project.
+** Implementation Plan
+  1) Convert my assignment 1 code to render images based on procedures 
+     and command line arguments rather than SVG files.
+  2) Draw a Sierpinski triangle.
+  3) If I am implementing animation, now would be a great time to do it.
+     Draw a Sierpinski triangle being constructed iteration-by-iteration.
+  4) Draw a Barnsley Fern.
+  5) I'm not sure if irradiance caching and distance functions are 
+     required for this task. If so, read more about them and implement
+     them.
+  6) Implement the fractal flame rendering algorithm.
+
+
