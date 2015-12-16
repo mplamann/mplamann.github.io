@@ -3,6 +3,8 @@
 #+EMAIL: mplamann@andrew.cmu.edu
 #+OPTIONS: toc:nil
 
+Mitchell Plamann (mplamann@andrew.cmu.edu)
+
 * Project Description
 In this project, I wrote a fractal renderer that draws iterated function
 systems using the chaos game algorithm.
@@ -21,8 +23,13 @@ Then, from the project directory, you can run the program with
   ./build/drawfractal fractals/sierpinski.json
 #+end_src
 
+* External Libraries
+I store fractal descriptions as JSON files. To parse these, I use
+the [[https://github.com/miloyip/rapidjson][rapidjson library]].
+
 * Results
 First, I implemented enough code to draw a Sierpinski triangle:
+
 [[file:sierpinski.png]]
 
 The data file that generated this fractal is
@@ -47,3 +54,164 @@ The "transforms" attribute describes a set of affine transforms
 that we apply during the chaos game.
 The "scale" and "offset" attributes describe the transformation that
 is applied to the points to make it fit the viewing window.
+
+
+To draw a Barnsley Fern, the affine transformations used in the IFS had
+to be weighted differently. I added a "probability" parameter to the
+transform datatype, and was able to draw
+
+[[file:fern-bw.png]]
+
+#+begin_src javascript
+{ "transforms": [
+    {"matrix": [[0, 0],
+	      [0, 0.16]],
+     "probability": 0.01},
+    {"matrix": [[0.85, 0.04],
+	      [-0.04, 0.85]],
+     "offset": [0, 1.6],
+     "probability": 0.85},
+    {"matrix": [[0.2, -0.26],
+	      [0.23, 0.22]],
+     "offset": [0, 1.6],
+     "probability": 0.07},
+    {"matrix": [[-0.15, 0.28],
+	      [0.26, 0.24]],
+     "offset": [0, 0.44],
+     "probability": 0.07}
+]
+}
+#+end_src
+
+Both of these examples show the use of irradiance caching and distance
+functions as described in the assignment 5 writeup.
+
+Then I added colors to the fractal renderer. To do this, I made use of
+the spline object from assignment 4.
+I define a spline for the colors seen in the fractal. As drawfractal.cpp
+is drawing the fractal, the densest points on the fractal are colored
+the value at 1.0 on the spline. The least dense points on the fractal
+are colored the value at 0 on the spline. The points in-between are mapped
+by the sqrt function, since that seemed to give the best-looking results.
+
+With this, I was able to generate a colored fern image:
+
+[[file:fern-color.png]]
+
+with the following data file:
+#+begin_src javascript
+{ "transforms": [
+    {"matrix": [[0, 0],
+	      [0, 0.16]],
+     "probability": 0.01},
+    {"matrix": [[0.85, 0.04],
+	      [-0.04, 0.85]],
+     "offset": [0, 1.6],
+     "probability": 0.85},
+    {"matrix": [[0.2, -0.26],
+	      [0.23, 0.22]],
+     "offset": [0, 1.6],
+     "probability": 0.07},
+    {"matrix": [[-0.15, 0.28],
+	      [0.26, 0.24]],
+     "offset": [0, 0.44],
+     "probability": 0.07}
+],
+  "scale": -50,
+  "offset": [450, 600],
+  "color_map": [
+      {"value": 0, "color": [0,0.1,0]},
+      {"value": 1, "color": [0.8,1,0.6]}
+  ],
+  "background_map": [
+      {"value": 0, "color": [0.2,0,0]},
+      {"value": 1, "color": [0,0.1,0.5]}
+  ]
+}
+#+end_src
+
+Finally, I implemented a few of the variations described in the
+[[flam3.com/flame.pdf][Fractal Flame Paper]]. These map the points in some non-affine way,
+which can lead to more interesting images. My favorite example of this
+the sierpinski triangle put through a spherical map taking $(x,y) \mapsto \frac{1}{x^2+y^2}(x,y)$
+
+[[file:spherepinski.png]]
+
+#+begin_src javascript
+{ "transforms": [
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0,0]},
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0.5,0]},
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0,0.5]}
+],
+  "scale": 500,
+  "offset": [0, 0],
+  "variant": 2,
+  "color_map": [
+      {"value": 0, "color": [0,0,0]},
+      {"value": 0.5, "color": [0.5, 0.4, 0.3]},
+      {"value": 1, "color": [0.3,0.9,0.7]}
+  ],
+  "background_map": [
+      {"value": 0, "color": [0.2,0,0.05]},
+      {"value": 0.7, "color": [0.6, 0.2, 0.3]},
+      {"value": 1, "color": [0.5, 0.1, 0.1]}
+  ]
+}
+#+end_src
+* Limitations / Future Work
+I had attempted to use the coloring algorithm described in the 
+fractal flame paper, where each part of the fractal is colored based on
+the specific affine function that generated that part. This resulted in
+very ugly images colored seemingly at random. I switched to the current
+spline-based coloring strategy, which gave better-looking results, but
+I would give the fractal flame coloring algorithm another attempt if I
+had more time.
+
+I had also wanted to animate the fractals my program produces. This was
+difficult to do for a few reasons. First of all, it was not clear to me
+which parameters to modify over time to generate good-looking animations.
+Also, my rendering algorithm is too slow to generate animation in real
+time. I suspect that I could parallelize the chaos game part of the 
+algorithm, and perhaps render the background differently to make the
+algorithm fast enough for real-time animation.
+* Gallery
+All of these files can be found in the fractals/ subdirectory of my
+project folder. Some of them were based on IFS descriptions found
+at [[http://ecademy.agnesscott.edu/~lriddle/ifs/ifs.htm]]
+** [[carpet.json]]
+[[file:carpet.png]]
+** [[christmas-tree.json]]
+[[file:christmas-tree.png]]
+** [[dragon.json]]
+[[file:dragon.png]]
+** [[dragon-variant.json]]
+[[file:dragon-variant.png]]
+** [[fern.json]]
+[[file:fern-color.png]]
+** [[icicle.json]]
+[[file:icicle.png]]
+** [[levy.json]]
+[[file:levy.png]]
+** [[mcworter.json]]
+[[file:mcworter.png]]
+** [[sierpinski.json]]
+[[file:sierpinski.png]]
+** [[snowflake.json]]
+[[file:snowflake.png]]
+
+This one is not exactly the Koch Snowflake, but I thought it looked pretty cool.
+** [[spherepinski.json]]
+[[file:spherepinski.png]]
+
+This image surprised me -- the light area in the center seems to outline
+the shape of the Koch Snowflake, but this image was generated from the
+sierpinski triangle equations with a spherical variation applied to it. 
+I'm not sure why that appears here.
+** [[comet.json]]
+[[file:comet.png]]
