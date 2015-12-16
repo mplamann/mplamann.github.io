@@ -3,6 +3,7 @@
 #+EMAIL: mplamann@andrew.cmu.edu
 #+OPTIONS: toc:nil
 
+My final project report can be found [[http://mplamann.github.io/final.html][here]]
 * Mitchell Plamann's Project Proposal
 ** Option G: Iterated Function Systems
 For this project, I plan to implement the iterated function systems

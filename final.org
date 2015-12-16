@@ -1,0 +1,49 @@
+#+TITLE: 15-462 Assignment 5 Report
+#+AUTHOR: Mitchell Plamann
+#+EMAIL: mplamann@andrew.cmu.edu
+#+OPTIONS: toc:nil
+
+* Project Description
+In this project, I wrote a fractal renderer that draws iterated function
+systems using the chaos game algorithm.
+
+* Build Instructions
+From the project directory, run
+#+begin_src shell
+  mkdir build
+  cd build
+  cmake ../src/
+  make
+#+end_src
+
+Then, from the project directory, you can run the program with
+#+begin_src bash
+  ./build/drawfractal fractals/sierpinski.json
+#+end_src
+
+* Results
+First, I implemented enough code to draw a Sierpinski triangle:
+[[file:sierpinski.png]]
+
+The data file that generated this fractal is
+#+begin_src javascript
+{ "transforms": [
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0,0]},
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0.5,0]},
+    {"matrix": [[0.5, 0],
+	      [0, 0.5]],
+     "offset": [0,0.5]}
+],
+  "scale": 500,
+  "offset": [50, 50]
+}
+#+end_src
+The entire fractal is represented as a JSON object.
+The "transforms" attribute describes a set of affine transforms
+that we apply during the chaos game.
+The "scale" and "offset" attributes describe the transformation that
+is applied to the points to make it fit the viewing window.
