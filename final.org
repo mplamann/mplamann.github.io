@@ -133,7 +133,7 @@ with the following data file:
 Finally, I implemented a few of the variations described in the
 [[flam3.com/flame.pdf][Fractal Flame Paper]]. These map the points in some non-affine way,
 which can lead to more interesting images. My favorite example of this
-the sierpinski triangle put through a spherical map taking $(x,y) \mapsto \frac{1}{x^2+y^2}(x,y)$
+the sierpinski triangle put through a spherical map taking (x,y) to 1/(x^2 + y^2) * (x,y)
 
 [[file:spherepinski.png]]
 

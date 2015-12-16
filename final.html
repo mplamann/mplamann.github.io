@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>15-462 Assignment 5 Report</title>
-<!-- 2015-12-16 Wed 18:20 -->
+<!-- 2015-12-16 Wed 18:26 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Mitchell Plamann" />
@@ -132,48 +132,6 @@ for the JavaScript code in this tag.
    if(elem.cacheClassTarget)
      target.className = elem.cacheClassTarget;
  }
-/*]]>*///-->
-</script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
-    MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
-        displayAlign: "center",
-        displayIndent: "2em",
-
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
-             }
-        }
-    });
 /*]]>*///-->
 </script>
 </head>
@@ -373,7 +331,7 @@ with the following data file:
 Finally, I implemented a few of the variations described in the
 <i>Fractal Flame Paper</i>. These map the points in some non-affine way,
 which can lead to more interesting images. My favorite example of this
-the sierpinski triangle put through a spherical map taking \((x,y) \mapsto \frac{1}{x^2+y^2}(x,y)\)
+the sierpinski triangle put through a spherical map taking (x,y) to 1/(x<sup>2</sup> + y<sup>2</sup>) * (x,y)
 </p>
 
 
@@ -581,7 +539,7 @@ I'm not sure why that appears here.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Mitchell Plamann</p>
-<p class="date">Created: 2015-12-16 Wed 18:20</p>
+<p class="date">Created: 2015-12-16 Wed 18:26</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
